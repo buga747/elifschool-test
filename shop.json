@@ -1,0 +1,41 @@
+{
+  "name": "McDonald's",
+  "id": "mcdoc",
+  "products": [
+    {
+      "imgUrl": "/path/to/big-mac.jpg",
+      "title": "Big Mac",
+      "description": "A classic burger with two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun.",
+      "category": "Burgers",
+      "price": 4.99
+    },
+    {
+      "imgUrl": "/path/to/chicken-mcnuggets.jpg",
+      "title": "Chicken McNuggets",
+      "description": "Crispy chicken nuggets made with white meat, perfect for dipping.",
+      "category": "Chicken",
+      "price": 3.49
+    },
+    {
+      "imgUrl": "/path/to/french-fries.jpg",
+      "title": "French Fries",
+      "description": "Crispy golden fries served hot and sprinkled with salt.",
+      "category": "Sides",
+      "price": 1.99
+    },
+    {
+      "imgUrl": "/path/to/mcflurry.jpg",
+      "title": "McFlurry",
+      "description": "Creamy soft-serve ice cream blended with your choice of toppings.",
+      "category": "Desserts",
+      "price": 2.49
+    },
+    {
+      "imgUrl": "/path/to/coca-cola.jpg",
+      "title": "Coca-Cola",
+      "description": "Refreshing carbonated drink to quench your thirst.",
+      "category": "Beverages",
+      "price": 1.49
+    }
+  ]
+}
