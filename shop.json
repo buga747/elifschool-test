@@ -1,41 +1,47 @@
 {
-  "name": "McDonald's",
-  "id": "mcdoc",
+  "name": "Sushi",
   "products": [
     {
-      "imgUrl": "/path/to/big-mac.jpg",
-      "title": "Big Mac",
-      "description": "A classic burger with two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun.",
-      "category": "Burgers",
-      "price": 4.99
+      "imgUrl": "https://example.com/sushi-product1.jpg",
+      "title": "California Roll",
+      "description": "Classic sushi roll with crab meat, avocado, and cucumber.",
+      "category": "Rolls",
+      "price": 8.99
     },
     {
-      "imgUrl": "/path/to/chicken-mcnuggets.jpg",
-      "title": "Chicken McNuggets",
-      "description": "Crispy chicken nuggets made with white meat, perfect for dipping.",
-      "category": "Chicken",
-      "price": 3.49
+      "imgUrl": "https://example.com/sushi-product2.jpg",
+      "title": "Spicy Tuna Roll",
+      "description": "Sushi roll filled with spicy tuna, cucumber, and spicy mayo.",
+      "category": "Rolls",
+      "price": 9.99
     },
     {
-      "imgUrl": "/path/to/french-fries.jpg",
-      "title": "French Fries",
-      "description": "Crispy golden fries served hot and sprinkled with salt.",
-      "category": "Sides",
-      "price": 1.99
+      "imgUrl": "https://example.com/sushi-product3.jpg",
+      "title": "Salmon Nigiri",
+      "description": "Fresh salmon slices served on bite-sized mounds of sushi rice.",
+      "category": "Nigiri",
+      "price": 5.99
     },
     {
-      "imgUrl": "/path/to/mcflurry.jpg",
-      "title": "McFlurry",
-      "description": "Creamy soft-serve ice cream blended with your choice of toppings.",
+      "imgUrl": "https://example.com/sushi-product4.jpg",
+      "title": "Rainbow Roll",
+      "description": "Colorful sushi roll with various fish and avocado on top.",
+      "category": "Rolls",
+      "price": 12.99
+    },
+    {
+      "imgUrl": "https://example.com/sushi-product5.jpg",
+      "title": "Miso Soup",
+      "description": "Traditional Japanese soup made with soybean paste, tofu, and seaweed.",
+      "category": "Soups",
+      "price": 2.99
+    },
+    {
+      "imgUrl": "https://example.com/sushi-product6.jpg",
+      "title": "Green Tea Ice Cream",
+      "description": "Creamy and refreshing ice cream flavored with green tea.",
       "category": "Desserts",
-      "price": 2.49
-    },
-    {
-      "imgUrl": "/path/to/coca-cola.jpg",
-      "title": "Coca-Cola",
-      "description": "Refreshing carbonated drink to quench your thirst.",
-      "category": "Beverages",
-      "price": 1.49
+      "price": 4.99
     }
   ]
 }
