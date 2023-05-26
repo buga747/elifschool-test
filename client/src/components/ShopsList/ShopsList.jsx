@@ -1,19 +1,21 @@
 import React from 'react';
-import { ShopListWrapper } from './ShopsList.styled';
+import { ShopListStyled, ShopListWrapper, Title } from './ShopsList.styled';
+import ShopsListItem from '../ShopsListItem/ShopsListItem';
 
-const ShopsList = ({ shops, onShopClick }) => {
+const ShopsList = ({ shops, onShopClick, currentShopId }) => {
   return (
     <ShopListWrapper>
-      <h2>Shops</h2>
-      <ul>
+      <Title>Shops</Title>
+      <ShopListStyled>
         {shops.map(shop => (
-          <li key={shop._id}>
-            <button type="button" onClick={() => onShopClick(shop)}>
-              {shop.name}
-            </button>
-          </li>
+          <ShopsListItem
+            key={shop._id}
+            currentShopId={currentShopId}
+            shop={shop}
+            onShopClick={onShopClick}
+          />
         ))}
-      </ul>
+      </ShopListStyled>
     </ShopListWrapper>
   );
 };

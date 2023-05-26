@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 export const HomeContainer = styled.div`
+  max-height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
-  height: 100vh;
+  gap: 20px;
 `;
 
 export const ShopList = styled.div`
