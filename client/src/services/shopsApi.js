@@ -8,3 +8,5 @@ export async function fetchAllShops() {
   const response = await axios.get(`/`);
   return response.data;
 }
+
+export async function postOrder(order) {}

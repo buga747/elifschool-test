@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HomeContainer = styled.div`
+export const Container = styled.div`
   max-height: 100vh;
   height: 100%;
   display: flex;

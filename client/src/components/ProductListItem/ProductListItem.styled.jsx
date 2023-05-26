@@ -4,7 +4,7 @@ export const ListItem = styled.li`
   position: relative;
   display: flex;
   width: 330px;
-  height: 460px;
+  height: 350px;
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
@@ -13,6 +13,7 @@ export const ListItem = styled.li`
   margin-bottom: 20px;
   overflow: hidden;
   transition: all 0.3s ease;
+  padding-bottom: 8px;
 
   :hover {
     transform: scale(1.03);
@@ -65,4 +66,18 @@ export const Category = styled.p`
   background-color: #ebcfcf;
   padding: 4px;
   border-radius: 4px;
+`;
+
+export const AddToCartButton = styled.button`
+  background-color: #1da1f2;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #0c8de4;
+  }
 `;

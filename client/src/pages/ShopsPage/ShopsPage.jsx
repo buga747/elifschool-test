@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { HomeContainer } from './ShopsPage.styled';
+import { Container } from './ShopsPage.styled';
 import { fetchAllShops } from '../../services/shopsApi';
 import ShopsList from '../../components/ShopsList/ShopsList';
 import ProductsList from '../../components/ProductsList/ProductsList';
 
-const ShopsPage = () => {
+const ShopsPage = ({ addToCart }) => {
   const [shops, setShops] = useState([]);
   const [shopProducts, setShopProducts] = useState([]);
   const [currentShopId, setCurrentShopId] = useState('');
@@ -40,15 +40,19 @@ const ShopsPage = () => {
   };
 
   return (
-    <HomeContainer>
+    <Container>
       {error && 'Error, please reload the page'}
       <ShopsList
         onShopClick={onShopClick}
         shops={shops}
         currentShopId={currentShopId}
       />
-      <ProductsList shopProducts={shopProducts} />
-    </HomeContainer>
+      <ProductsList
+        shopProducts={shopProducts}
+        currentShopId={currentShopId}
+        addToCart={addToCart}
+      />
+    </Container>
   );
 };
 
