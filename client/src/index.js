@@ -6,7 +6,7 @@ import { GlobalStyle } from 'components/GlobalStyle';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/elifschool-test/api/shops">
+    <BrowserRouter basename="/elifschool-test">
       <GlobalStyle />
       <App />
     </BrowserRouter>
