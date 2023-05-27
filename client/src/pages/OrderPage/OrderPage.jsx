@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { addOrder } from 'services/shopsApi';
 
 const CartPage = ({ items }) => {
@@ -8,6 +9,13 @@ const CartPage = ({ items }) => {
     phone: '',
     address: '',
   });
+  const [shopId, setShopId] = useState('');
+
+  useEffect(() => {
+    if (items.length > 0) {
+      setShopId(items[0].shopId);
+    }
+  }, [items]);
 
   const [cartItems, setCartItems] = useState(items);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -61,7 +69,7 @@ const CartPage = ({ items }) => {
         phone: formData.phone,
         address: formData.address,
       },
-      shopId: '1234567890',
+      shopId: shopId,
       items: cartItems.map(item => ({
         name: item.title,
         quantity: item.quantity,
@@ -71,11 +79,25 @@ const CartPage = ({ items }) => {
       date: new Date().toISOString(),
     };
 
+    console.log(items[0]);
+    console.log(data);
+
     try {
       const response = await addOrder(data);
-      console.log(response.data); // Handle the response as needed
+      if (response) {
+        toast.success('Thank you for your order. Wait for the delivery');
+      }
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+      });
+      setCartItems([]);
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
+      toast.error('Something wrong. Please try again later');
     }
   };
 

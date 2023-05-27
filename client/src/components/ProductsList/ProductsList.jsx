@@ -16,7 +16,7 @@ const ProductsList = ({ shopProducts, addToCart, currentShopId }) => {
             product={product}
             key={product._id}
             addToCart={addToCart}
-            currentShopId={currentShopId}
+            shopId={currentShopId}
           />
         ))}
       </ProductListStyled>

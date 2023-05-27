@@ -17,7 +17,7 @@ const ProductListItem = ({
   shopId,
   addToCart,
 }) => {
-  const item = { _id, title, price, shopId, imgUrl, quantity: 1 };
+  const item = { _id, title, price, shopId: shopId, imgUrl, quantity: 1 };
 
   return (
     <ListItem>
@@ -36,6 +36,7 @@ const ProductListItem = ({
       <AddToCartButton
         onClick={() => {
           addToCart(item);
+          console.log(item);
         }}
       >
         Add to cart <GrCart />{' '}
