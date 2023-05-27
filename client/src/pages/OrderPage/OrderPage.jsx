@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { addOrder } from 'services/shopsApi';
 import styled from 'styled-components';
-import { BsTrash, BsPersonCircle, BsPen } from 'react-icons/bs';
+import { BsTrash } from 'react-icons/bs';
 
 const Container = styled.div`
   display: flex;
