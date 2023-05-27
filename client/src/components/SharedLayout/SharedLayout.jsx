@@ -2,8 +2,9 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, Header, Link, LoaderWrapper } from './SharedLayout.styled';
 import { ThreeCircles } from 'react-loader-spinner';
+import { BsCart } from 'react-icons/bs';
 
-export function SharedLayout() {
+export function SharedLayout({ orderedItems }) {
   return (
     <Container>
       <Header>
@@ -11,7 +12,13 @@ export function SharedLayout() {
           <Link to="/" end>
             Shops
           </Link>
-          <Link to="/orders">Orders</Link>
+          {orderedItems.length > 0 ? (
+            <Link to="/orders">
+              Orders <BsCart />
+            </Link>
+          ) : (
+            <Link to="/orders">Orders</Link>
+          )}{' '}
         </nav>
       </Header>
       <main>

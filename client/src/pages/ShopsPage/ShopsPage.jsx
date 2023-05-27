@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container } from './ShopsPage.styled';
+import { Container, LoaderContainer, Loader } from './ShopsPage.styled';
 import { fetchAllShops } from '../../services/shopsApi';
 import ShopsList from '../../components/ShopsList/ShopsList';
 import ProductsList from '../../components/ProductsList/ProductsList';
@@ -8,13 +8,13 @@ const ShopsPage = ({ addToCart }) => {
   const [shops, setShops] = useState([]);
   const [shopProducts, setShopProducts] = useState([]);
   const [currentShopId, setCurrentShopId] = useState('');
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // setIsLoading(true);
+        setIsLoading(true);
         const shops = await fetchAllShops();
         setShops([...shops]);
         setCurrentShopId(shops[0]._id);
@@ -22,7 +22,7 @@ const ShopsPage = ({ addToCart }) => {
       } catch (e) {
         setError(true);
       } finally {
-        // setIsLoading(false);
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -42,16 +42,24 @@ const ShopsPage = ({ addToCart }) => {
   return (
     <Container>
       {error && 'Error, please reload the page'}
-      <ShopsList
-        onShopClick={onShopClick}
-        shops={shops}
-        currentShopId={currentShopId}
-      />
-      <ProductsList
-        shopProducts={shopProducts}
-        currentShopId={currentShopId}
-        addToCart={addToCart}
-      />
+      {isLoading ? (
+        <LoaderContainer>
+          <Loader>Loading...</Loader>
+        </LoaderContainer>
+      ) : (
+        <>
+          <ShopsList
+            onShopClick={onShopClick}
+            shops={shops}
+            currentShopId={currentShopId}
+          />
+          <ProductsList
+            shopProducts={shopProducts}
+            currentShopId={currentShopId}
+            addToCart={addToCart}
+          />
+        </>
+      )}
     </Container>
   );
 };
