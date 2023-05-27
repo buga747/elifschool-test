@@ -48,7 +48,7 @@ export const App = () => {
         });
       }
     }
-    console.log(orderedItems);
+    toast.success(`${newItem.title} added to your cart`);
   };
 
   return (

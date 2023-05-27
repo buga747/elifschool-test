@@ -1,6 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { addOrder } from 'services/shopsApi';
+import styled from 'styled-components';
+import { BsTrash, BsPersonCircle, BsPen } from 'react-icons/bs';
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FormContainer = styled.div`
+  width: 50%;
+`;
+
+const ItemContainer = styled.div`
+  width: 50%;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputContainer = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 1rem;
+`;
 
 const CartPage = ({ items }) => {
   const [formData, setFormData] = useState({
@@ -79,9 +107,6 @@ const CartPage = ({ items }) => {
       date: new Date().toISOString(),
     };
 
-    console.log(items[0]);
-    console.log(data);
-
     try {
       const response = await addOrder(data);
       if (response) {
@@ -102,11 +127,11 @@ const CartPage = ({ items }) => {
   };
 
   return (
-    <div>
-      <div>
+    <Container>
+      <FormContainer>
         <h2>User Information</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
+        <Form onSubmit={handleSubmit}>
+          <InputContainer>
             <label>Name:</label>
             <input
               type="text"
@@ -115,8 +140,8 @@ const CartPage = ({ items }) => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </InputContainer>
+          <InputContainer>
             <label>Email:</label>
             <input
               type="email"
@@ -125,8 +150,8 @@ const CartPage = ({ items }) => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </InputContainer>
+          <InputContainer>
             <label>Phone:</label>
             <input
               type="tel"
@@ -135,8 +160,8 @@ const CartPage = ({ items }) => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <div>
+          </InputContainer>
+          <InputContainer>
             <label>Address:</label>
             <input
               type="text"
@@ -145,11 +170,13 @@ const CartPage = ({ items }) => {
               onChange={handleInputChange}
               required
             />
-          </div>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <div>
+          </InputContainer>
+          <ButtonContainer>
+            <button type="submit">Submit</button>
+          </ButtonContainer>
+        </Form>
+      </FormContainer>
+      <ItemContainer>
         <h2>Ordered Items</h2>
         <ul>
           {cartItems.map(item => (
@@ -169,17 +196,19 @@ const CartPage = ({ items }) => {
                 />
               </div>
               <div>Price: ${item.price}</div>
-              <div>Total: ${(item.quantity * item.price).toFixed(2)}</div>{' '}
-              {/* Calculate and display the total price with two decimal places */}
-              <button onClick={() => handleDeleteItem(item._id)}>Delete</button>
+              <div>Total: ${(item.quantity * item.price).toFixed(2)}</div>
+              <button onClick={() => handleDeleteItem(item._id)}>
+                {' '}
+                <BsTrash />
+              </button>
             </li>
           ))}
         </ul>
         <div>
           <strong>Total Price: ${totalPrice.toFixed(2)}</strong>
         </div>
-      </div>
-    </div>
+      </ItemContainer>
+    </Container>
   );
 };
 

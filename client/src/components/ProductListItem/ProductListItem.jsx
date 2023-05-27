@@ -36,7 +36,7 @@ const ProductListItem = ({
       <AddToCartButton
         onClick={() => {
           addToCart(item);
-          console.log(item);
+          
         }}
       >
         Add to cart <GrCart />{' '}
