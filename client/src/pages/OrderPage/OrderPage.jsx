@@ -1,128 +1,164 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { addOrder } from 'services/shopsApi';
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  phone: Yup.number().required('Phone number is required'),
-  address: Yup.string().required('Address is required'),
-});
-
-const HomeContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const FormWrapper = styled.div`
-  width: 50%;
-  padding: 20px;
-`;
-
-const CartWrapper = styled.div`
-  width: 50%;
-  padding: 20px;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  margin-bottom: 5px;
-`;
-
-const Input = styled(Field)`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-`;
-
-const ErrorMessageWrapper = styled(ErrorMessage)`
-  color: red;
-  margin-top: 5px;
-`;
-
-const SubmitButton = styled.button`
-  padding: 10px 20px;
-  background-color: #4285f4;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-`;
-
-const OrderPage = ({ orderedItems }) => {
-  const initialValues = {
+const CartPage = ({ items }) => {
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     address: '',
+  });
+
+  const [cartItems, setCartItems] = useState(items);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  // Calculate the total price based on item quantities
+  useEffect(() => {
+    let total = 0;
+    cartItems.forEach(item => {
+      total += item.price * item.quantity;
+    });
+    setTotalPrice(total);
+  }, [cartItems]);
+
+  const handleQuantityChange = (itemId, quantity) => {
+    const updatedItems = cartItems.map(item => {
+      if (item._id === itemId) {
+        const total = item.price * quantity; // Calculate the total for the item
+        return {
+          ...item,
+          quantity,
+          total,
+        };
+      }
+      return item;
+    });
+    setCartItems(updatedItems);
   };
 
-  const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
-    resetForm();
+  const handleDeleteItem = itemId => {
+    const updatedItems = cartItems.filter(item => item._id !== itemId);
+    setCartItems(updatedItems);
+  };
+
+  // Handle form input changes
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const data = {
+      user: {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        address: formData.address,
+      },
+      shopId: '1234567890',
+      items: cartItems.map(item => ({
+        name: item.title,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalPrice: totalPrice,
+      date: new Date().toISOString(),
+    };
+
+    try {
+      const response = await addOrder(data);
+      console.log(response.data); // Handle the response as needed
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <HomeContainer>
-      <FormWrapper>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          <Form>
-            <FormGroup>
-              <Label htmlFor="name">Name:</Label>
-              <Input type="text" id="name" name="name" />
-              <ErrorMessageWrapper name="name" component="div" />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="email">Email:</Label>
-              <Input type="email" id="email" name="email" />
-              <ErrorMessageWrapper name="email" component="div" />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="phone">Phone:</Label>
-              <Input type="text" id="phone" name="phone" />
-              <ErrorMessageWrapper name="phone" component="div" />
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="address">Address:</Label>
-              <Input type="text" id="address" name="address" />
-              <ErrorMessageWrapper name="address" component="div" />
-            </FormGroup>
-
-            <SubmitButton type="submit">Submit</SubmitButton>
-          </Form>
-        </Formik>
-      </FormWrapper>
-      <CartWrapper>
-        {orderedItems.length > 0 ? (
-          <ul>
-            {orderedItems.map(item => (
-              <li key={item._id}>
-                {item.title} {item.quantity}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Add items to cart</p>
-        )}
-      </CartWrapper>
-    </HomeContainer>
+    <div>
+      <div>
+        <h2>User Information</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Phone:</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Address:</label>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div>
+        <h2>Ordered Items</h2>
+        <ul>
+          {cartItems.map(item => (
+            <li key={item._id}>
+              <div>
+                <strong>{item.title}</strong>
+              </div>
+              <div>
+                Quantity:
+                <input
+                  type="number"
+                  value={item.quantity}
+                  onChange={e =>
+                    handleQuantityChange(item._id, parseInt(e.target.value))
+                  }
+                  min="1"
+                />
+              </div>
+              <div>Price: ${item.price}</div>
+              <div>Total: ${(item.quantity * item.price).toFixed(2)}</div>{' '}
+              {/* Calculate and display the total price with two decimal places */}
+              <button onClick={() => handleDeleteItem(item._id)}>Delete</button>
+            </li>
+          ))}
+        </ul>
+        <div>
+          <strong>Total Price: ${totalPrice.toFixed(2)}</strong>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default OrderPage;
+export default CartPage;
