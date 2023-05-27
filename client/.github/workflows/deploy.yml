@@ -11,9 +11,14 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
-      - name: Install, lint, build 🔧
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies and build 🔧
+        working-directory: ./client
         run: |
-          cd client
           npm install
           npm run lint:js
           npm run build
@@ -22,4 +27,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
-          folder: client/build
+          folder: ./client/build
