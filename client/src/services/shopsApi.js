@@ -9,4 +9,7 @@ export async function fetchAllShops() {
   return response.data;
 }
 
-export async function postOrder(order) {}
+export async function addOrder(order) {
+  const { data } = await axios.post('/orders', order);
+  return data;
+}

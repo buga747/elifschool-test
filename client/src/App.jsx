@@ -71,10 +71,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<ShopsPage addToCart={addToCart} />} />
-          <Route
-            path="/orders"
-            element={<OrderPage orderedItems={orderedItems} />}
-          />
+          <Route path="/orders" element={<OrderPage items={orderedItems} />} />
         </Route>
       </Routes>
       <ToastContainer />
