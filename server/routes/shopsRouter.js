@@ -13,7 +13,7 @@ router.get("/", getShops);
 
 router.post(
   "/:shopId",
-    validateBody(addProductToShopValidationSchema),
+  validateBody(addProductToShopValidationSchema),
   addProductToShop
 );
 
