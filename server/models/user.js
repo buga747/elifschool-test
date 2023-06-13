@@ -3,6 +3,10 @@ const { handleMongooseSchemaError } = require("../utils/errors");
 
 const user = new Schema(
   {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+    },
     password: {
       type: String,
       required: [true, "Set password for user"],
@@ -21,7 +25,7 @@ const user = new Schema(
       required: false,
     },
 
-    token: String,
+    refresh_token: String,
   },
   { versionKey: false, timestamps: true }
 );

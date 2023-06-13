@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
   "/register",
   validateBody(authValidationSchemas.createUserValidationSchema),
-  authControllers.register
+  authControllers.signup
 );
 
 router.post(
@@ -19,7 +19,5 @@ router.post(
 );
 
 router.post("/logout", authenticate, authControllers.logout);
-
-router.get("/current", authenticate, authControllers.getCurrent);
 
 module.exports = { authRouter: router };

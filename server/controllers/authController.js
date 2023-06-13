@@ -1,45 +1,31 @@
 const { ctrlWrapper } = require("../utils/decorators");
 const {
-  registerService,
+  signupService,
   loginService,
   logoutService,
 } = require("../services/authServices");
 
-const register = ctrlWrapper(async (req, res, next) => {
-  const newUser = await registerService(req.body);
-  res.status(201).json({
-    user: {
-      email: newUser.email,
-      number: newUser.number,
-      password: newUser.password,
-    },
-  });
+const signup = ctrlWrapper(async (req, res, next) => {
+  const newUser = await signupService(req.body);
+  res.status(201).json(newUser);
 });
 
 const login = ctrlWrapper(async (req, res, next) => {
-  const { user, token } = await loginService(req.body);
-  res.status(200).json({
-    token,
-    user: {
-      email: user.email,
-      number: user.number,
-    },
-  });
+  const { user, accessToken } = await loginService(req.body);
+
+  res.status(200).json({ user, accessToken });
 });
 
 const logout = ctrlWrapper(async (req, res, next) => {
-  await logoutService(req.user);
-  res.status(204).json();
-});
+  const userId = req.user._id;
 
-const getCurrent = ctrlWrapper(async (req, res, next) => {
-  const { email, number } = req.user;
-  res.json({ email, number });
+  await logoutService(userId);
+
+  res.status(200).json({ message: "Logout was succesful" });
 });
 
 module.exports = {
-  register,
+  signup,
   login,
   logout,
-  getCurrent,
 };

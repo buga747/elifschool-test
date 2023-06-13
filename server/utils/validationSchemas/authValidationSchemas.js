@@ -18,9 +18,14 @@ const loginValidationSchema = Joi.object().keys({
   password: createUserValidationSchema.extract("password"),
 });
 
+const verifyEmailSchema = Joi.object({
+  email: createUserValidationSchema.extract("email"),
+});
+
 const authValidationSchemas = {
   createUserValidationSchema,
   loginValidationSchema,
+  verifyEmailSchema,
 };
 
 module.exports = authValidationSchemas;
